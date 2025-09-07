@@ -17,6 +17,7 @@ db_url = os.environ.get("DATABASE_URL", "").strip()
 if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql+psycopg://", 1)
 
+
 # fallback: إذا ما فيه DATABASE_URL → نستخدم SQLite محليًا
 if not db_url:
     db_url = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
