@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان سعودي درايف - التطبيق السعودي للتوصيل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="flag-container">
+                <img src="saudi_flag.jpg" alt="علم المملكة العربية السعودية" class="flag">
+            </div>
+            <h1 class="main-title">سعودي درايف</h1>
+            <p class="subtitle">التطبيق السعودي 100% للتوصيل</p>
+            <div class="slogan">نكمل بعضنا</div>
+        </header>
+
+        <!-- Introduction Section -->
+        <section class="intro-section">
+            <div class="intro-card">
+                <h2>أهلاً وسهلاً بكم</h2>
+                <p class="intro-text">
+                    أنا <strong>عمر من فريق سعودي درايف</strong>، وأتشرف بأن أقدم لكم تطبيق <strong>"سعودي درايف"</strong> - تطبيق التوصيل السعودي 100%
+                </p>
+                <p class="intro-text">
+                    خلال شهرين، سنطلق تطبيقنا الذي يهدف إلى دعم الشعب السعودي، حيث سيكون <strong>كامل الدخل للكباتن بدون أخذ أي نسبة منهم</strong>.
+                </p>
+                <p class="intro-text highlight">
+                    يهمني رأيكم واقتراحاتكم لأن هدفنا رضاكم، وما يكتمل شيء بدون دعمكم.
+                </p>
+            </div>
+        </section>
+
+        <!-- Quote Section -->
+        <section class="quote-section">
+            <div class="quote-card">
+                <blockquote>
+                    "مصلحتي أن يكون المواطن السعودي كل يوم راضيًا أكثر من اليوم اللي قبله"
+                </blockquote>
+                <cite>صاحب السمو الملكي الأمير محمد بن سلمان</cite>
+            </div>
+        </section>
+
+        <!-- Survey Form -->
+        <section class="survey-section">
+            <div class="form-card">
+                <h3>🟢 استبيان للركاب (العملاء)</h3>
+                <form id="surveyForm">
+                    <!-- معلومات شخصية اختيارية -->
+                    <div class="personal-info">
+                        <h4>المعلومات الشخصية (اختيارية)</h4>
+                        
+                        <div class="form-group">
+                            <label for="name">الاسم:</label>
+                            <input type="text" id="name" name="name" placeholder="اسمك الكريم (اختياري)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">الجنس:</label>
+                            <select id="gender" name="gender">
+                                <option value="">اختر (اختياري)</option>
+                                <option value="ذكر">ذكر</option>
+                                <option value="أنثى">أنثى</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group phone-group">
+                            <label for="phone">رقم الجوال:</label>
+                            <input type="tel" id="phone" name="phone" placeholder="05xxxxxxxx (اختياري)">
+                            <div class="discount-message">
+                                ✨ من يشارك رقمه سيحصل على خصومات قوية على الرحلات عند إطلاق التطبيق! ✨
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الأسئلة الرئيسية -->
+                    <div class="main-questions">
+                        <h4>أسئلة حول استخدام تطبيقات التوصيل</h4>
+
+                        <!-- السؤال الأول -->
+                        <div class="form-group">
+                            <label for="current_app">1. ما هو التطبيق الذي تستخدمه حاليًا للتنقل؟</label>
+                            <select id="current_app" name="current_app">
+                                <option value="">اختر التطبيق</option>
+                                <option value="أوبر">أوبر (Uber)</option>
+                                <option value="كريم">كريم (Careem)</option>
+                                <option value="بولت">بولت (Bolt)</option>
+                                <option value="إيكو رايد">إيكو رايد (Eco Ride)</option>
+                                <option value="لا أستخدم">لا أستخدم تطبيقات التوصيل</option>
+                                <option value="أخرى">أخرى</option>
+                            </select>
+                        </div>
+
+                        <!-- السؤال الثاني -->
+                        <div class="form-group">
+                            <label for="usage_frequency">2. كم مرة تستخدم تطبيقات التوصيل في الأسبوع؟</label>
+                            <select id="usage_frequency" name="usage_frequency">
+                                <option value="">اختر التكرار</option>
+                                <option value="يومياً">يومياً</option>
+                                <option value="عدة مرات في الأسبوع">عدة مرات في الأسبوع</option>
+                                <option value="مرة أو أقل">مرة أو أقل في الأسبوع</option>
+                                <option value="نادراً">نادراً</option>
+                            </select>
+                        </div>
+
+                        <!-- السؤال الثالث -->
+                        <div class="form-group">
+                            <label>3. ما أهم ما تبحث عنه عند طلب سيارة؟ (يمكن اختيار أكثر من خيار)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="important_factors" value="السعر">
+                                    <span class="checkmark"></span>
+                                    السعر المناسب
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="important_factors" value="سرعة الاستجابة">
+                                    <span class="checkmark"></span>
+                                    سرعة الاستجابة
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="important_factors" value="نظافة السيارة">
+                                    <span class="checkmark"></span>
+                                    نظافة السيارة
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="important_factors" value="أمان السائق">
+                                    <span class="checkmark"></span>
+                                    أمان السائق
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="important_factors" value="طرق دفع متنوعة">
+                                    <span class="checkmark"></span>
+                                    طرق دفع متنوعة
+                                </label>
+                            </div>
+                            
+                            <div class="additional-input">
+                                <label for="additional_features">أشياء إضافية تود أن تكون في تطبيق سعودي درايف:</label>
+                                <textarea 
+                                    id="additional_features" 
+                                    name="additional_features" 
+                                    placeholder="مثال: خدمة توصيل الطعام، إمكانية حجز مسبق، تقييم السائقين، خدمة عملاء 24/7..."
+                                    maxlength="500"
+                                ></textarea>
+                                <div class="char-counter">
+                                    <span id="additional-features-count">0</span> / 500 حرف
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- السؤال الرابع -->
+                        <div class="form-group">
+                            <label>4. ما أكثر المشاكل التي تواجهك في تطبيقات التوصيل الحالية؟ (يمكن اختيار أكثر من خيار)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="current_problems" value="غلاء الأسعار">
+                                    <span class="checkmark"></span>
+                                    غلاء الأسعار
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="current_problems" value="قلة السائقين المتاحين">
+                                    <span class="checkmark"></span>
+                                    قلة السائقين المتاحين
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="current_problems" value="تأخير في الوصول">
+                                    <span class="checkmark"></span>
+                                    تأخير في الوصول
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="current_problems" value="ضعف الدعم الفني">
+                                    <span class="checkmark"></span>
+                                    ضعف الدعم الفني
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="current_problems" value="عدم وضوح السعر النهائي">
+                                    <span class="checkmark"></span>
+                                    عدم وضوح السعر النهائي
+                                </label>
+                            </div>
+                            
+                            <div class="additional-input">
+                                <label for="additional_problems">مشاكل أخرى تواجهك وتود ألا تكون في تطبيق سعودي درايف:</label>
+                                <textarea 
+                                    id="additional_problems" 
+                                    name="additional_problems" 
+                                    placeholder="مثال: صعوبة التواصل مع السائق، عدم دقة الموقع، مشاكل في التطبيق، سوء معاملة السائقين..."
+                                    maxlength="500"
+                                ></textarea>
+                                <div class="char-counter">
+                                    <span id="additional-problems-count">0</span> / 500 حرف
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- السؤال الخامس -->
+                        <div class="form-group">
+                            <label for="try_saudi_app">5. إذا كان هناك تطبيق سعودي جديد يدعم السائقين السعوديين 100% وبسعر رمزي، هل ستجربه؟</label>
+                            <select id="try_saudi_app" name="try_saudi_app">
+                                <option value="">اختر إجابتك</option>
+                                <option value="نعم">نعم، بالتأكيد</option>
+                                <option value="ربما">ربما، حسب التجربة</option>
+                                <option value="لا">لا، أفضل التطبيقات الحالية</option>
+                            </select>
+                        </div>
+
+                        <!-- السؤال السادس -->
+                        <div class="form-group">
+                            <label>6. ما طرق الدفع المفضلة لديك؟ (يمكن اختيار أكثر من خيار)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="preferred_payment" value="كاش">
+                                    <span class="checkmark"></span>
+                                    كاش (نقدي)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="preferred_payment" value="مدى">
+                                    <span class="checkmark"></span>
+                                    مدى
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="preferred_payment" value="Apple Pay">
+                                    <span class="checkmark"></span>
+                                    Apple Pay
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="preferred_payment" value="STC Pay">
+                                    <span class="checkmark"></span>
+                                    STC Pay
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="preferred_payment" value="تابي">
+                                    <span class="checkmark"></span>
+                                    تابي (Tabby)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="preferred_payment" value="تمارا">
+                                    <span class="checkmark"></span>
+                                    تمارا (Tamara)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="preferred_payment" value="أخرى">
+                                    <span class="checkmark"></span>
+                                    أخرى
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- سؤال الكابتنة المحدث -->
+                        <div class="form-group female-question">
+                            <label for="female_captain_service">لاحظنا في تطبيقات التوصيل أن سعر الكابتنة أعلى من سعر الكابتن، ما رأيك لو قلنا لك أنه في تطبيقنا تقدري تختاري اللي يوصلك (كابتن أو كابتنة) ويوجد كابتنة توديك وين ما تبي بنفس سعر الكابتن بدون أسعار مرتفعة؟</label>
+                            <select id="female_captain_service" name="female_captain_service">
+                                <option value="">اختر إجابتك</option>
+                                <option value="راح أطلبها من تطبيقكم">راح أطلبها من تطبيقكم</option>
+                                <option value="ممتاز ولكن محتاجة أشوف التجربة">ممتاز ولكن محتاجة أشوف التجربة</option>
+                                <option value="لا أحتاج هذه الخدمة">لا أحتاج هذه الخدمة</option>
+                                <option value="غير مهتمة">غير مهتمة</option>
+                            </select>
+                            
+                            <div class="additional-input">
+                                <label for="female_service_suggestions">إضافات أو اقتراحات لخدمة الكابتنة:</label>
+                                <textarea 
+                                    id="female_service_suggestions" 
+                                    name="female_service_suggestions" 
+                                    placeholder="مثال: أوقات محددة للخدمة، تأمين إضافي، خدمات خاصة للعائلات، مرافقة الأطفال..."
+                                    maxlength="300"
+                                ></textarea>
+                                <div class="char-counter">
+                                    <span id="female-suggestions-count">0</span> / 300 حرف
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- اقتراحات وملاحظات -->
+                        <div class="form-group">
+                            <label for="customer_suggestions">اقتراحاتك وملاحظاتك لتطوير سعودي درايف:</label>
+                            <textarea 
+                                id="customer_suggestions" 
+                                name="customer_suggestions" 
+                                placeholder="شاركنا أفكارك واقتراحاتك لجعل سعودي درايف أفضل تطبيق توصيل في المملكة..."
+                                maxlength="1000"
+                            ></textarea>
+                            <div class="char-counter">
+                                <span id="char-count">0</span> / 1000 حرف
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">إرسال الاستبيان</span>
+                        <span class="btn-icon">🚀</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="contact-card">
+                <h3>للتواصل والاستفسارات</h3>
+                <p>لأي فكرة أو مشاركة:</p>
+                <div class="contact-info">
+                    <span class="phone-number">📱 0551755479</span>
+                </div>
+                <p class="thank-you">شكراً عظيم لدعمكم</p>
+                <div class="final-slogan">نكمل بعضنا 🇸🇦</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="success-icon">✅</div>
+            <h2>تم إرسال الاستبيان بنجاح!</h2>
+            <p>شكراً لك على مشاركتك القيمة في تطوير سعودي درايف</p>
+            <p class="success-note">سنتواصل معك قريباً بالتحديثات والخصومات الخاصة</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

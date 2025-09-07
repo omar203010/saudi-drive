@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "name": "أحمد محمد",
+    "gender": "ذكر",
+    "price_suggestions": "أقترح أن تكون الأسعار منافسة ومناسبة للجميع، مثل 10 ريال للمسافات القصيرة و 20 ريال للمسافات المتوسطة",
+    "payment_methods": "أفضل الدفع النقدي والدفع الإلكتروني مثل مدى وأبل باي وستي باي",
+    "captain_to_captain": "نعم",
+    "customer_suggestions": "أتمنى أن يكون التطبيق سهل الاستخدام وسريع في التوصيل. كما أقترح إضافة خاصية تتبع الطلب مباشرة وإمكانية التقييم للكابتن. أيضاً يفضل وجود خدمة عملاء متاحة 24/7 لحل أي مشاكل قد تواجه العملاء. بالتوفيق لكم في هذا المشروع الرائع!",
+    "created_at": "2025-09-03 10:36:10.449092",
+    "ip_address": "127.0.0.1",
+    "phone": null,
+    "current_app": null,
+    "usage_frequency": null,
+    "important_factors": null,
+    "current_problems": null,
+    "try_saudi_app": null,
+    "preferred_payment": null,
+    "additional_features": null,
+    "additional_problems": null,
+    "female_captain_service": null,
+    "female_service_suggestions": null
+  }
+]
