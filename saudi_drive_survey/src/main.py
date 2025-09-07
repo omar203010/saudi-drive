@@ -50,6 +50,17 @@ def serve_static(path: str):
         return send_from_directory(STATIC_DIR, "index.html")
     return send_from_directory(STATIC_DIR, path)
 
+# 🔎 Route لفحص قاعدة البيانات المستخدمة
+@app.route("/debug/db")
+def debug_db():
+    db_uri = app.config["SQLALCHEMY_DATABASE_URI"]
+    if "postgresql://" in db_uri:
+        return f"✅ التطبيق متصل بـ PostgreSQL<br>URI: {db_uri}"
+    elif "sqlite://" in db_uri:
+        return f"⚠️ التطبيق يستخدم SQLite (مؤقت على Render)<br>URI: {db_uri}"
+    else:
+        return f"❓ قاعدة البيانات غير معروفة<br>URI: {db_uri}"
+
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",

@@ -541,7 +541,7 @@ def export_excel():
                 'رقم الجوال': response.phone or '',
                 'اقتراحات الأسعار': response.price_suggestions or '',
                 'طرق الدفع': response.payment_methods or '',
-                'كابتنة لكابتنة': response.captain_to_captain or '',
+                'عميلة لكابتنة': response.captain_to_captain or '',
                 'اقتراحات العملاء': response.customer_suggestions or '',
                 'تاريخ الإرسال': response.created_at.strftime('%Y-%m-%d %H:%M:%S') if response.created_at else '',
                 'عنوان IP': response.ip_address or ''
