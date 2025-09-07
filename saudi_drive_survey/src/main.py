@@ -16,6 +16,9 @@ db_url = os.environ.get("DATABASE_URL", "").strip()
 # بعض المنصات (مثل Render/Heroku) ترجع postgres:// → نبدلها بـ postgresql+psycopg://
 if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql+psycopg://", 1)
+elif db_url.startswith("postgresql://") and "+psycopg" not in db_url:
+    db_url = db_url.replace("postgresql://", "postgresql+psycopg://", 1)
+
 
 
 # fallback: إذا ما فيه DATABASE_URL → نستخدم SQLite محليًا
