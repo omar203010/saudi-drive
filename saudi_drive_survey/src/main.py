@@ -13,9 +13,9 @@ app.secret_key = os.environ.get("SECRET_KEY", "dev-secret")
 # 🔗 إعداد رابط قاعدة البيانات
 db_url = os.environ.get("DATABASE_URL", "").strip()
 
-# بعض المنصات (مثل Render/Heroku) ترجع postgres:// → نبدلها بـ postgresql://
+# بعض المنصات (مثل Render/Heroku) ترجع postgres:// → نبدلها بـ postgresql+psycopg://
 if db_url.startswith("postgres://"):
-    db_url = db_url.replace("postgres://", "postgresql://", 1)
+    db_url = db_url.replace("postgres://", "postgresql+psycopg://", 1)
 
 # fallback: إذا ما فيه DATABASE_URL → نستخدم SQLite محليًا
 if not db_url:
@@ -25,7 +25,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # فرض SSL إذا قاعدة البيانات PostgreSQL (مهم مع Render)
-if "postgresql://" in db_url:
+if "postgresql+psycopg://" in db_url:
     app.config.setdefault("SQLALCHEMY_ENGINE_OPTIONS", {})
     app.config["SQLALCHEMY_ENGINE_OPTIONS"].setdefault("connect_args", {})
     app.config["SQLALCHEMY_ENGINE_OPTIONS"]["connect_args"].setdefault("sslmode", "require")
@@ -56,8 +56,8 @@ def serve_static(path: str):
 def debug_db():
     """إظهار نوع قاعدة البيانات المتصل بها التطبيق."""
     db_uri = app.config["SQLALCHEMY_DATABASE_URI"]
-    if "postgresql://" in db_uri:
-        return f"✅ التطبيق متصل بـ PostgreSQL<br>URI: {db_uri}"
+    if "postgresql+psycopg://" in db_uri:
+        return f"✅ التطبيق متصل بـ PostgreSQL (psycopg3)<br>URI: {db_uri}"
     elif "sqlite://" in db_uri:
         return f"⚠️ التطبيق يستخدم SQLite (مؤقت على Render)<br>URI: {db_uri}"
     else:
