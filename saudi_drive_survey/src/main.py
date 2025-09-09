@@ -2,6 +2,7 @@ import os
 import io
 import qrcode
 from flask import Flask, send_from_directory, Response, request
+
 from src.models.user import db
 from src.routes.user import user_bp
 from src.routes.survey import survey_bp
@@ -67,18 +68,12 @@ def debug_db():
     else:
         return f"❓ قاعدة البيانات غير معروفة<br>URI: {db_uri}"
 
-# 🧾 QR Code للاستبيان
-@app.route("/qr")
-def generate_qr():
-    """
-    يولّد باركود يفتح صفحة الاستبيان.
-    يستخدم الدومين الحالي ديناميكيًا ليظل صالحًا لو تغيّر الرابط/الدومين.
-    """
-    # لو صفحتك الرئيسية هي الاستبيان:
-    survey_url = request.host_url  # مثال: https://saudi-drive.onrender.com/
-
-    # إنشاء الـ QR
-    qr = qrcode.QRCode(version=1, box_size=10, border=4)
+# 🧾 صورة الباركود (PNG) — يمكن استخدامها للطباعة أو الإدراج في مواد تسويقية
+@app.route("/qr.png")
+def qr_png():
+    # عدّل هذا لو عندك صفحة استبيان مخصصة غير الصفحة الرئيسية
+    survey_url = request.host_url  # مثال: https://YOUR-SERVICE.onrender.com/
+    qr = qrcode.QRCode(version=2, box_size=12, border=2)
     qr.add_data(survey_url)
     qr.make(fit=True)
 
@@ -88,9 +83,86 @@ def generate_qr():
     buf.seek(0)
 
     resp = Response(buf.getvalue(), mimetype="image/png")
-    # كاش يوم كامل عشان سرعة التحميل عند الطباعة/المشاركة
-    resp.headers["Cache-Control"] = "public, max-age=86400"
+    resp.headers["Cache-Control"] = "public, max-age=86400"  # يوم كامل
     return resp
+
+# 🖼️ صفحة أنيقة تعرض الباركود مع لمسات سعودية وأزرار
+@app.route("/qr")
+def qr_page():
+    survey_url = request.host_url  # غيّرها لمسار الاستبيان لو عندك صفحة محددة
+    html = f"""<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>استبيان — ليكون التطبيق يرضيكم</title>
+<style>
+  :root {{ --green:#0a7a3c; --green-dark:#075c2d; --bg:#f7faf8; --text:#0f172a; }}
+  * {{ box-sizing:border-box; }}
+  body {{ margin:0; background:var(--bg); color:var(--text);
+         font-family:"Tajawal", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }}
+  .wrap {{ min-height:100dvh; display:grid; place-items:center; padding:24px; }}
+  .card {{ width:100%; max-width:920px; background:#fff; border-radius:24px; padding:28px;
+          box-shadow:0 10px 30px rgba(0,0,0,.08); border:1px solid #eef2ee; }}
+  .header {{ display:grid; gap:8px; align-items:center; grid-template-columns:auto 1fr; margin-bottom:22px; }}
+  .flag {{ width:56px; height:56px; border-radius:14px; background:var(--green); display:grid; place-items:center;
+           color:#fff; font-size:28px; user-select:none; box-shadow:inset 0 0 0 2px rgba(255,255,255,.18); }}
+  h1 {{ margin:0; font-size:28px; line-height:1.25; }}
+  .sub {{ color:#475569; font-size:15px; margin-top:-2px; }}
+  .grid {{ display:grid; gap:24px; grid-template-columns:1fr 1fr; }}
+  @media (max-width:860px) {{ .grid {{ grid-template-columns:1fr; }} }}
+  .qr-box {{ border:1px dashed #d9e5da; border-radius:16px; padding:18px; display:grid; place-items:center; background:#f9fcf9; }}
+  .qr-img {{ width:100%; max-width:340px; aspect-ratio:1/1; background:#fff; border-radius:12px; padding:14px;
+             box-shadow:0 6px 20px rgba(10,122,60,.12); }}
+  .actions {{ display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }}
+  .btn {{ appearance:none; border:none; cursor:pointer; font-weight:700; border-radius:999px; padding:12px 20px; font-size:15px;
+          transition:transform .12s ease, box-shadow .12s ease, background .2s ease; }}
+  .btn-primary {{ background:var(--green); color:#fff; box-shadow:0 8px 20px rgba(10,122,60,.20); }}
+  .btn-primary:hover {{ background:var(--green-dark); transform:translateY(-1px); }}
+  .btn-ghost {{ background:transparent; color:var(--green); border:1px solid rgba(10,122,60,.25); }}
+  .btn-ghost:hover {{ background:rgba(10,122,60,.06); }}
+  .quote {{ background:linear-gradient(135deg, rgba(10,122,60,.07), rgba(10,122,60,.03));
+            border:1px solid rgba(10,122,60,.12); border-radius:16px; padding:18px; }}
+  .quote h3 {{ margin:0 0 8px 0; font-size:18px; color:var(--green-dark); }}
+  .quote p {{ margin:0; color:#334155; line-height:1.8; }}
+  .footer {{ margin-top:22px; display:flex; gap:10px; align-items:center; color:#64748b; font-size:13px; flex-wrap:wrap; }}
+  @media print {{ .btn, .actions, .footer {{ display:none !important; }} .card {{ box-shadow:none; border:none; }} .qr-img {{ box-shadow:none; }} }}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="header">
+        <div class="flag" aria-hidden="true">🇸🇦</div>
+        <div>
+          <h1>استبيان — ليكون التطبيق يرضيكم</h1>
+          <div class="sub">ساهم برأيك في تطوير <strong>Saudi Drive</strong> — نعتز بملاحظاتك</div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="qr-box">
+          <img class="qr-img" src="/qr.png" alt="QR Code — افتح الاستبيان" />
+        </div>
+        <div>
+          <div class="quote" role="note" aria-label="اقتباس ملهم">
+            <h3>عنوان: <em>نكمل بعضنا</em></h3>
+            <p>«نكمل بعضنا» — نجاحنا بتضافر الجهود ومشاركة الآراء البنّاءة.</p>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary" href="{survey_url}" target="_blank" rel="noopener">افتح الاستبيان الآن</a>
+            <button class="btn btn-ghost" onclick="window.print()">طباعة الصفحة</button>
+          </div>
+          <div class="footer">
+            <span>امسح الباركود بكاميرا الجوال لفتح الاستبيان فورًا.</span>
+            <span>أو اضغط زر <strong>افتح الاستبيان الآن</strong>.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>"""
+    return Response(html, mimetype="text/html; charset=utf-8")
 
 # ✅ نقطة تشغيل التطبيق
 if __name__ == "__main__":
