@@ -1,5 +1,7 @@
 import os
-from flask import Flask, send_from_directory
+import io
+import qrcode
+from flask import Flask, send_from_directory, Response, request
 from src.models.user import db
 from src.routes.user import user_bp
 from src.routes.survey import survey_bp
@@ -18,8 +20,6 @@ if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql+psycopg://", 1)
 elif db_url.startswith("postgresql://") and "+psycopg" not in db_url:
     db_url = db_url.replace("postgresql://", "postgresql+psycopg://", 1)
-
-
 
 # fallback: إذا ما فيه DATABASE_URL → نستخدم SQLite محليًا
 if not db_url:
@@ -66,6 +66,31 @@ def debug_db():
         return f"⚠️ التطبيق يستخدم SQLite (مؤقت على Render)<br>URI: {db_uri}"
     else:
         return f"❓ قاعدة البيانات غير معروفة<br>URI: {db_uri}"
+
+# 🧾 QR Code للاستبيان
+@app.route("/qr")
+def generate_qr():
+    """
+    يولّد باركود يفتح صفحة الاستبيان.
+    يستخدم الدومين الحالي ديناميكيًا ليظل صالحًا لو تغيّر الرابط/الدومين.
+    """
+    # لو صفحتك الرئيسية هي الاستبيان:
+    survey_url = request.host_url  # مثال: https://saudi-drive.onrender.com/
+
+    # إنشاء الـ QR
+    qr = qrcode.QRCode(version=1, box_size=10, border=4)
+    qr.add_data(survey_url)
+    qr.make(fit=True)
+
+    img = qr.make_image(fill_color="black", back_color="white")
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    buf.seek(0)
+
+    resp = Response(buf.getvalue(), mimetype="image/png")
+    # كاش يوم كامل عشان سرعة التحميل عند الطباعة/المشاركة
+    resp.headers["Cache-Control"] = "public, max-age=86400"
+    return resp
 
 # ✅ نقطة تشغيل التطبيق
 if __name__ == "__main__":
